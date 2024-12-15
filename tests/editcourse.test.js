@@ -45,7 +45,7 @@ test.serial('PUT /courses/teaching/:courseId/edit - Invalid data should return 4
         summary: 'This course introduces techniques for designing and developing small to medium software programs, covering the software lifecycle, user requirements, specification, design and implementation.',
         schedule: '2000-01-23T04:56:07.000Z',
         endDate: '2024-05-31T00:00:00.000Z',
-        price: null, // Invalid type (should be an integer)
+        price: "a", // Invalid type (should be an integer)
         customInfo: 'customInfo',
         successRate: 95,
     };
@@ -59,4 +59,11 @@ test.serial('PUT /courses/teaching/:courseId/edit - Invalid data should return 4
 
     t.is(error.response.statusCode, 400);
     t.is(error.response.body.message, 'request.body.price should be integer');
+});
+
+test.serial('GET /courses/:courseId - Invalid courseId should return 404', async (t) => {
+    const invalidCourseId = "   "; // Whitespace-only input
+
+    const response = await t.context.got(`courses/${invalidCourseId}`, { throwHttpErrors: false });
+    t.is(response.statusCode, 404, `Expected 404 for invalid courseId: "${invalidCourseId}"`);
 });
