@@ -17,8 +17,8 @@ function isValidLength(field, maxLength) {
 module.exports.report_post = function report_post(req, res, next, body) {
     // Extract fields
     const { typeOfReport, name, message, email } = body;
-    req=req;
-    next=next;
+    req=next;
+    next=req;
     // Validate missing fields
     if (!typeOfReport || !name || !message || !email) {
         return utils.writeJson(res, {
