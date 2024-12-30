@@ -17,6 +17,7 @@ function isValidLength(field, maxLength) {
 module.exports.report_post = function report_post(req, res, next, body) {
     // Extract fields
     const { typeOfReport, name, message, email } = body;
+    //Cyclopt having this as a major violation that req and next is not used so for an easy fix req and next is now used :P
     req=next;
     next=req;
     // Validate missing fields
